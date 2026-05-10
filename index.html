@@ -71,9 +71,8 @@
 
     .nav-logo img {
       height: 44px;
-      width: 44px;
-      object-fit: cover;
-      border-radius: 50%;
+      width: auto;
+      object-fit: contain;
     }
 
     .nav-brand {
@@ -297,8 +296,6 @@
       z-index: 2;
       filter: drop-shadow(0 0 60px rgba(232,98,26,0.4));
       animation: float 6s ease-in-out infinite;
-      border-radius: 50%;
-      object-fit: cover;
     }
 
     @keyframes float {
@@ -862,7 +859,7 @@
     <div class="section-inner">
       <div class="section-label">Join the Movement</div>
       <h2>Be First.<br/><span>Stay Secure.</span></h2>
-      <p>Get early access to news, episodes, and content — plus the occasional security tip that won't make your eyes glaze over.</p>
+      <p>Get early access to tools, episodes, and content — plus the occasional security tip that won't make your eyes glaze over.</p>
       <div class="cta-form">
         <input type="email" id="cta-email" placeholder="your@email.com" />
         <button onclick="window.open('https://reallybadsecurity.beehiiv.com/subscribe?email='+encodeURIComponent(document.getElementById('cta-email').value),'_blank')">Count Me In</button>
@@ -878,7 +875,7 @@
   <!-- FOOTER -->
   <footer>
     <div class="footer-logo">
-      <img src="./images/rbs-shield-only-logo.png" alt="Really Bad Security" style="height:36px;width:36px;object-fit:cover;border-radius:50%;" />
+      <img src="./images/rbs-shield-only-logo.png" alt="Really Bad Security" style="height:36px;width:auto;object-fit:contain;" />
       <span style="font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:14px;letter-spacing:0.05em;color:rgba(139,163,184,0.6);text-transform:uppercase;">Really Bad Security</span>
     </div>
     <p class="footer-copy">© 2025 Really Bad Security. Making bad security good.</p>
