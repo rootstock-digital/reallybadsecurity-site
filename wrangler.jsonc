@@ -1,14 +1,11 @@
 {
-  "$schema": "node_modules/wrangler/config-schema.json",
   "name": "reallybadsecurity-site",
-  "compatibility_date": "2026-05-17",
-  "observability": {
-    "enabled": true
-  },
+  "compatibility_date": "2025-01-01",
   "assets": {
-    "directory": "."
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
   },
-  "compatibility_flags": [
-    "nodejs_compat"
-  ]
+  "build": {
+    "command": "npm run build"
+  }
 }
