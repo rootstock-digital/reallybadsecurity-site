@@ -1,11 +1,65 @@
 'use client'
+import { useEffect, useState } from 'react'
+
+interface Product {
+  id: string
+  title: string
+  handle: string
+  priceRange: { minVariantPrice: { amount: string } }
+  images: { edges: { node: { url: string; altText: string } }[] }
+}
+
+async function fetchProducts(): Promise<Product[]> {
+  const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
+  const token = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN
+
+  console.log('Domain:', domain)
+  console.log('Token exists:', !!token)
+
+  const res = await fetch(`https://${domain}/api/2025-01/graphql.json`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-Shopify-Storefront-Access-Token': token!,
+    },
+    body: JSON.stringify({
+      query: `{
+        products(first: 4) {
+          edges {
+            node {
+              id title handle
+              priceRange { minVariantPrice { amount } }
+              images(first: 1) { edges { node { url altText } } }
+            }
+          }
+        }
+      }`
+    })
+  })
+
+  console.log('Response status:', res.status)
+  const data = await res.json()
+  console.log('Data:', JSON.stringify(data))
+  return data.data.products.edges.map((e: { node: Product }) => e.node)
+}
+
 export default function Shop() {
-  const products = [
-    { name: 'Shadowbanned Tee', price: '$29', emoji: '👕' },
-    { name: 'Ask AI Mug', price: '$18', emoji: '☕' },
-    { name: 'Shadowbanned Hoodie', price: '$54', emoji: '🧥' },
-    { name: 'Prompt Engineering Tee', price: '$29', emoji: '👕' },
-  ]
+  const [products, setProducts] = useState<Product[]>([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    fetchProducts()
+      .then(p => { setProducts(p); setLoading(false) })
+      .catch(err => { setError(err.message); setLoading(false) })
+  }, [])
+
+  if (error) return (
+    <section id="shop" style={{ padding: '100px 40px', background: '#142233' }}>
+      <div style={{ color: '#E8621A', textAlign: 'center' }}>Shop error: {error}</div>
+    </section>
+  )
+
   return (
     <section id="shop" style={{ padding: '100px 40px', background: '#142233', borderTop: '1px solid rgba(232,98,26,0.15)', position: 'relative', zIndex: 1 }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
@@ -18,20 +72,31 @@ export default function Shop() {
             Visit the Shop
           </a>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 2 }}>
-          {products.map((product, i) => (
-            <a key={i} href="https://shop.reallybadsecurity.com" target="_blank" style={{ textDecoration: 'none', display: 'block', background: '#1C2E42', border: '1px solid rgba(139,163,184,0.08)', padding: '32px 24px', transition: 'border-color 0.2s' }}
-              onMouseEnter={e => (e.currentTarget.style.borderColor = '#E8621A')}
-              onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(139,163,184,0.08)')}>
-              <div style={{ fontSize: 48, marginBottom: 20, display: 'block' }}>{product.emoji}</div>
-              <div style={{ fontWeight: 800, fontSize: 16, textTransform: 'uppercase', letterSpacing: '0.04em', color: '#F5F0E8', marginBottom: 8 }}>{product.name}</div>
-              <div style={{ fontSize: 18, fontWeight: 700, color: '#E8621A' }}>{product.price}</div>
-            </a>
-          ))}
-        </div>
-        <p style={{ marginTop: 24, fontSize: 13, color: '#8BA3B8', textAlign: 'center' }}>
-          Merch that security people will actually want to wear. Because owning your nerd identity is important.
-        </p>
+        {loading ? (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 2 }}>
+            {[1,2,3,4].map(i => (
+              <div key={i} style={{ background: '#1C2E42', padding: '32px 24px', height: 280, opacity: 0.5 }} />
+            ))}
+          </div>
+        ) : (
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 2 }}>
+            {products.map(product => (
+              <a key={product.id} href={`https://shop.reallybadsecurity.com/products/${product.handle}`} target="_blank"
+                style={{ textDecoration: 'none', display: 'block', background: '#1C2E42', border: '1px solid rgba(139,163,184,0.08)', overflow: 'hidden' }}
+                onMouseEnter={e => (e.currentTarget.style.borderColor = '#E8621A')}
+                onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(139,163,184,0.08)')}>
+                {product.images.edges[0] && (
+                  <img src={product.images.edges[0].node.url} alt={product.images.edges[0].node.altText || product.title}
+                    style={{ width: '100%', height: 200, objectFit: 'cover' }} />
+                )}
+                <div style={{ padding: '20px 24px' }}>
+                  <div style={{ fontWeight: 800, fontSize: 14, textTransform: 'uppercase', letterSpacing: '0.04em', color: '#F5F0E8', marginBottom: 8 }}>{product.title}</div>
+                  <div style={{ fontSize: 18, fontWeight: 700, color: '#E8621A' }}>${parseFloat(product.priceRange.minVariantPrice.amount).toFixed(2)}</div>
+                </div>
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   )

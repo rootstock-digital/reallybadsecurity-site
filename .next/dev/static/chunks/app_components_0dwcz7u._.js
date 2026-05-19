@@ -971,32 +971,88 @@ __turbopack_context__.s([
     "default",
     ()=>Shop
 ]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$polyfills$2f$process$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = /*#__PURE__*/ __turbopack_context__.i("[project]/node_modules/next/dist/build/polyfills/process.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
+;
+var _s = __turbopack_context__.k.signature();
 'use client';
 ;
-function Shop() {
-    const products = [
-        {
-            name: 'Shadowbanned Tee',
-            price: '$29',
-            emoji: '👕'
+async function fetchProducts() {
+    const domain = ("TURBOPACK compile-time value", "shop.reallybadsecurity.com");
+    const token = ("TURBOPACK compile-time value", "1ba727d8fd00fda437b6b37e585f86ec");
+    console.log('Domain:', domain);
+    console.log('Token exists:', !!token);
+    const res = await fetch(`https://${domain}/api/2025-01/graphql.json`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Shopify-Storefront-Access-Token': token
         },
-        {
-            name: 'Ask AI Mug',
-            price: '$18',
-            emoji: '☕'
-        },
-        {
-            name: 'Shadowbanned Hoodie',
-            price: '$54',
-            emoji: '🧥'
-        },
-        {
-            name: 'Prompt Engineering Tee',
-            price: '$29',
-            emoji: '👕'
+        body: JSON.stringify({
+            query: `{
+        products(first: 4) {
+          edges {
+            node {
+              id title handle
+              priceRange { minVariantPrice { amount } }
+              images(first: 1) { edges { node { url altText } } }
+            }
+          }
         }
-    ];
+      }`
+        })
+    });
+    console.log('Response status:', res.status);
+    const data = await res.json();
+    console.log('Data:', JSON.stringify(data));
+    return data.data.products.edges.map((e)=>e.node);
+}
+function Shop() {
+    _s();
+    const [products, setProducts] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
+    const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "Shop.useEffect": ()=>{
+            fetchProducts().then({
+                "Shop.useEffect": (p)=>{
+                    setProducts(p);
+                    setLoading(false);
+                }
+            }["Shop.useEffect"]).catch({
+                "Shop.useEffect": (err)=>{
+                    setError(err.message);
+                    setLoading(false);
+                }
+            }["Shop.useEffect"]);
+        }
+    }["Shop.useEffect"], []);
+    if (error) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+        id: "shop",
+        style: {
+            padding: '100px 40px',
+            background: '#142233'
+        },
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            style: {
+                color: '#E8621A',
+                textAlign: 'center'
+            },
+            children: [
+                "Shop error: ",
+                error
+            ]
+        }, void 0, true, {
+            fileName: "[project]/app/components/Shop.tsx",
+            lineNumber: 59,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/components/Shop.tsx",
+        lineNumber: 58,
+        columnNumber: 5
+    }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
         id: "shop",
         style: {
@@ -1024,7 +1080,7 @@ function Shop() {
                     children: "Merch"
                 }, void 0, false, {
                     fileName: "[project]/app/components/Shop.tsx",
-                    lineNumber: 12,
+                    lineNumber: 66,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1052,13 +1108,13 @@ function Shop() {
                                     children: "Shop"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/Shop.tsx",
-                                    lineNumber: 15,
+                                    lineNumber: 69,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/Shop.tsx",
-                            lineNumber: 14,
+                            lineNumber: 68,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
@@ -1079,110 +1135,139 @@ function Shop() {
                             children: "Visit the Shop"
                         }, void 0, false, {
                             fileName: "[project]/app/components/Shop.tsx",
-                            lineNumber: 17,
+                            lineNumber: 71,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/components/Shop.tsx",
-                    lineNumber: 13,
+                    lineNumber: 67,
                     columnNumber: 9
                 }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     style: {
                         display: 'grid',
                         gridTemplateColumns: 'repeat(4, 1fr)',
                         gap: 2
                     },
-                    children: products.map((product, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
-                            href: "https://shop.reallybadsecurity.com",
+                    children: [
+                        1,
+                        2,
+                        3,
+                        4
+                    ].map((i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            style: {
+                                background: '#1C2E42',
+                                padding: '32px 24px',
+                                height: 280,
+                                opacity: 0.5
+                            }
+                        }, i, false, {
+                            fileName: "[project]/app/components/Shop.tsx",
+                            lineNumber: 78,
+                            columnNumber: 15
+                        }, this))
+                }, void 0, false, {
+                    fileName: "[project]/app/components/Shop.tsx",
+                    lineNumber: 76,
+                    columnNumber: 11
+                }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    style: {
+                        display: 'grid',
+                        gridTemplateColumns: 'repeat(4, 1fr)',
+                        gap: 2
+                    },
+                    children: products.map((product)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
+                            href: `https://shop.reallybadsecurity.com/products/${product.handle}`,
                             target: "_blank",
                             style: {
                                 textDecoration: 'none',
                                 display: 'block',
                                 background: '#1C2E42',
                                 border: '1px solid rgba(139,163,184,0.08)',
-                                padding: '32px 24px',
-                                transition: 'border-color 0.2s'
+                                overflow: 'hidden'
                             },
                             onMouseEnter: (e)=>e.currentTarget.style.borderColor = '#E8621A',
                             onMouseLeave: (e)=>e.currentTarget.style.borderColor = 'rgba(139,163,184,0.08)',
                             children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                product.images.edges[0] && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
+                                    src: product.images.edges[0].node.url,
+                                    alt: product.images.edges[0].node.altText || product.title,
                                     style: {
-                                        fontSize: 48,
-                                        marginBottom: 20,
-                                        display: 'block'
-                                    },
-                                    children: product.emoji
+                                        width: '100%',
+                                        height: 200,
+                                        objectFit: 'cover'
+                                    }
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/Shop.tsx",
-                                    lineNumber: 26,
-                                    columnNumber: 15
+                                    lineNumber: 89,
+                                    columnNumber: 19
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     style: {
-                                        fontWeight: 800,
-                                        fontSize: 16,
-                                        textTransform: 'uppercase',
-                                        letterSpacing: '0.04em',
-                                        color: '#F5F0E8',
-                                        marginBottom: 8
+                                        padding: '20px 24px'
                                     },
-                                    children: product.name
-                                }, void 0, false, {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                fontWeight: 800,
+                                                fontSize: 14,
+                                                textTransform: 'uppercase',
+                                                letterSpacing: '0.04em',
+                                                color: '#F5F0E8',
+                                                marginBottom: 8
+                                            },
+                                            children: product.title
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/components/Shop.tsx",
+                                            lineNumber: 93,
+                                            columnNumber: 19
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            style: {
+                                                fontSize: 18,
+                                                fontWeight: 700,
+                                                color: '#E8621A'
+                                            },
+                                            children: [
+                                                "$",
+                                                parseFloat(product.priceRange.minVariantPrice.amount).toFixed(2)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/components/Shop.tsx",
+                                            lineNumber: 94,
+                                            columnNumber: 19
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/app/components/Shop.tsx",
-                                    lineNumber: 27,
-                                    columnNumber: 15
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    style: {
-                                        fontSize: 18,
-                                        fontWeight: 700,
-                                        color: '#E8621A'
-                                    },
-                                    children: product.price
-                                }, void 0, false, {
-                                    fileName: "[project]/app/components/Shop.tsx",
-                                    lineNumber: 28,
-                                    columnNumber: 15
+                                    lineNumber: 92,
+                                    columnNumber: 17
                                 }, this)
                             ]
-                        }, i, true, {
+                        }, product.id, true, {
                             fileName: "[project]/app/components/Shop.tsx",
-                            lineNumber: 23,
-                            columnNumber: 13
+                            lineNumber: 84,
+                            columnNumber: 15
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/app/components/Shop.tsx",
-                    lineNumber: 21,
-                    columnNumber: 9
-                }, this),
-                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                    style: {
-                        marginTop: 24,
-                        fontSize: 13,
-                        color: '#8BA3B8',
-                        textAlign: 'center'
-                    },
-                    children: "Merch that security people will actually want to wear. Because owning your nerd identity is important."
-                }, void 0, false, {
-                    fileName: "[project]/app/components/Shop.tsx",
-                    lineNumber: 32,
-                    columnNumber: 9
+                    lineNumber: 82,
+                    columnNumber: 11
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/components/Shop.tsx",
-            lineNumber: 11,
+            lineNumber: 65,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/components/Shop.tsx",
-        lineNumber: 10,
+        lineNumber: 64,
         columnNumber: 5
     }, this);
 }
+_s(Shop, "3+N/VFIgZOBgubN9oS5aTzm2qqY=");
 _c = Shop;
 var _c;
 __turbopack_context__.k.register(_c, "Shop");
