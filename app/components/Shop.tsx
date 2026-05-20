@@ -10,8 +10,8 @@ interface Product {
 }
 
 async function fetchProducts(): Promise<Product[]> {
-  const domain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN
-  const token = process.env.NEXT_PUBLIC_SHOPIFY_STOREFRONT_TOKEN
+  const domain = 'shop.reallybadsecurity.com'
+  const token = '1ba727d8fd00fda437b6b37e585f86ec'
 
   console.log('Domain:', domain)
   console.log('Token exists:', !!token)

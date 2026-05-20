@@ -1,5 +1,5 @@
 export default function Ticker() {
-  const items = ['Podcast', 'Security Content', 'Merch Drop', 'Real Talk', 'No Jargon', 'Community', 'YouTube', 'TikTok', 'Authenticated Access', 'Not Another Demo']
+  const items = ['Podcast', 'Security Content', 'Merch Drop', 'No Jargon', 'Community', 'YouTube', 'TikTok', 'Authenticated Access', 'Not Another Demo']
   return (
     <div style={{ overflow: 'hidden', background: '#E8621A', padding: '10px 0', position: 'relative', zIndex: 2 }}>
       <div style={{ display: 'flex', animation: 'ticker 30s linear infinite', whiteSpace: 'nowrap' }}>
