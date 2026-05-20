@@ -5,7 +5,7 @@ export default function Footer() {
         <img src="/rbs-shield-only-logo.png" alt="Really Bad Security" style={{ height: 36, width: 36, objectFit: 'contain' }} />
         <span style={{ fontWeight: 700, fontSize: 14, letterSpacing: '0.05em', color: 'rgba(139,163,184,0.6)', textTransform: 'uppercase' }}>Really Bad Security</span>
       </div>
-      <p style={{ fontSize: 13, color: 'rgba(139,163,184,0.5)' }}>© 2025 Really Bad Security. Making bad security good.</p>
+      <p style={{ fontSize: 13, color: 'rgba(139,163,184,0.5)' }}>© 2026 Really Bad Security. Making bad security good.</p>
       <ul style={{ display: 'flex', gap: 24, listStyle: 'none', margin: 0, padding: 0 }}>
         {[
           { label: 'Shop', url: 'https://shop.reallybadsecurity.com' },
