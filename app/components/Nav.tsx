@@ -23,8 +23,8 @@ export default function Nav() {
         </a>
         <ul style={{ display: 'flex', gap: 32, listStyle: 'none', margin: 0, padding: 0 }}>
           <li><a href="#about" style={{ color: '#8BA3B8', textDecoration: 'none', fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>About</a></li>
-          <li><a href="#content" style={{ color: '#8BA3B8', textDecoration: 'none', fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Content</a></li>
           <li><a href="#shop" style={{ color: '#8BA3B8', textDecoration: 'none', fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Shop</a></li>
+          <li><a href="#youtube" style={{ color: '#8BA3B8', textDecoration: 'none', fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Content</a></li>
           <li><a href="https://shop.reallybadsecurity.com" target="_blank" style={{ background: '#E8621A', color: '#0D1B2A', padding: '8px 20px', borderRadius: 2, fontSize: 13, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none' }}>Shop Now</a></li>
         </ul>
         <button
