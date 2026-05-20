@@ -628,7 +628,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 async function fetchPlaylistVideos(playlistId) {
-    const apiKey = 'AIzaSyCNOej2rhoWI2HDz0AnusbRcm1DvXMy6aE';
+    const apiKey = 'AIzaSyAb04yR_pXw_BZGauFzjURbu4aCLEJ6SUg';
     const res = await fetch(`https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`);
     const data = await res.json();
     if (!data.items) return [];
