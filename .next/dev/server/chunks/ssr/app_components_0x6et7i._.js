@@ -956,8 +956,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 async function fetchProducts() {
-    const domain = ("TURBOPACK compile-time value", "shop.reallybadsecurity.com");
-    const token = ("TURBOPACK compile-time value", "1ba727d8fd00fda437b6b37e585f86ec");
+    const domain = 'shop.reallybadsecurity.com';
+    const token = '1ba727d8fd00fda437b6b37e585f86ec';
     console.log('Domain:', domain);
     console.log('Token exists:', !!token);
     const res = await fetch(`https://${domain}/api/2025-01/graphql.json`, {

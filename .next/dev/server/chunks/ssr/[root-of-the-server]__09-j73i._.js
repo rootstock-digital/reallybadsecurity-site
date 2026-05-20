@@ -386,7 +386,6 @@ function Ticker() {
         'Podcast',
         'Security Content',
         'Merch Drop',
-        'Real Talk',
         'No Jargon',
         'Community',
         'YouTube',
@@ -828,7 +827,7 @@ function Footer() {
                     fontSize: 13,
                     color: 'rgba(139,163,184,0.5)'
                 },
-                children: "© 2025 Really Bad Security. Making bad security good."
+                children: "© 2026 Really Bad Security. Making bad security good."
             }, void 0, false, {
                 fileName: "[project]/app/components/Footer.tsx",
                 lineNumber: 8,
