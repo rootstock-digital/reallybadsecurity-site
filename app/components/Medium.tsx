@@ -9,6 +9,15 @@ interface Article {
   description: string
 }
 
+interface FeedItem {
+  title: string
+  link: string
+  pubDate: string
+  thumbnail?: string
+  enclosure?: { link?: string }
+  description: string
+}
+
 export default function Medium() {
   const [articles, setArticles] = useState<Article[]>([])
   const [loading, setLoading] = useState(true)
@@ -20,7 +29,7 @@ export default function Medium() {
           `https://api.rss2json.com/v1/api.json?rss_url=https://medium.com/feed/@reallybadsecurity`
         )
         const data = await res.json()
-        const items = data.items.slice(0, 3).map((item: any) => ({
+        const items = data.items.slice(0, 3).map((item: FeedItem) => ({
           title: item.title,
           link: item.link,
           pubDate: new Date(item.pubDate).toLocaleDateString(),

@@ -7,7 +7,7 @@ export default function Newsletter() {
           Be First.<br /><span style={{ color: '#E8621A' }}>Stay Secure.</span>
         </h2>
         <p style={{ color: '#8BA3B8', fontSize: 18, maxWidth: 560, margin: '0 auto 40px', lineHeight: 1.6 }}>
-          Get early access to episodes and content — plus the occasional security tip that won't make your eyes glaze over.
+          Get early access to episodes and content — plus the occasional security tip that won&apos;t make your eyes glaze over.
         </p>
         <div style={{ display: 'flex', maxWidth: 500, margin: '0 auto', justifyContent: 'center' }}>
           <input type="email" placeholder="your@email.com" style={{ flex: 1, padding: '16px 20px', background: 'rgba(255,255,255,0.06)', border: '1.5px solid rgba(139,163,184,0.3)', borderRight: 'none', borderRadius: '2px 0 0 2px', color: '#F5F0E8', fontSize: 15, outline: 'none' }} />
