@@ -1,15 +1,22 @@
-# wrangler files
+# Next.js
+.next/
+out/
+
+# wrangler
 .wrangler
 .dev.vars*
 !.dev.vars.example
 .env*
 !.env.example
+
+# dependencies
 node_modules
 
 # OpenNext
 .open-next
 
-# wrangler files
-.wrangler
-.dev.vars*
-!.dev.vars.example
+# typescript build info
+*.tsbuildinfo
+
+# macOS
+.DS_Store

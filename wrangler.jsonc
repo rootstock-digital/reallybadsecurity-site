@@ -2,6 +2,7 @@
 	"$schema": "node_modules/wrangler/config-schema.json",
 	"main": ".open-next/worker.js",
 	"name": "reallybadsecurity-site",
+	"account_id": "f157515668720355a002905921993a9a",
 	"compatibility_date": "2026-05-18",
 	"compatibility_flags": [
 		"nodejs_compat",

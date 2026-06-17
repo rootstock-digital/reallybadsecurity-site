@@ -21,7 +21,7 @@ export default function Nav() {
             Really Bad<span style={{ color: '#E8621A', display: 'block' }}>Security</span>
           </div>
         </a>
-        <ul style={{ display: 'flex', gap: 32, listStyle: 'none', margin: 0, padding: 0 }}>
+        <ul className="nav-links" style={{ gap: 32, listStyle: 'none', margin: 0, padding: 0 }}>
           <li><a href="#about" style={{ color: '#8BA3B8', textDecoration: 'none', fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>About</a></li>
           <li><a href="#shop" style={{ color: '#8BA3B8', textDecoration: 'none', fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Shop</a></li>
           <li><a href="#youtube" style={{ color: '#8BA3B8', textDecoration: 'none', fontSize: 13, fontWeight: 600, letterSpacing: '0.12em', textTransform: 'uppercase' }}>Content</a></li>
@@ -29,7 +29,10 @@ export default function Nav() {
         </ul>
         <button
           onClick={() => setMenuOpen(!menuOpen)}
-          style={{ display: 'none', background: 'none', border: '1.5px solid rgba(139,163,184,0.3)', borderRadius: 2, padding: '8px 12px', cursor: 'pointer', color: '#F5F0E8', fontSize: 20 }}
+          aria-label="Toggle menu"
+          aria-expanded={menuOpen}
+          className="nav-menu-btn"
+          style={{ background: 'none', border: '1.5px solid rgba(139,163,184,0.3)', borderRadius: 2, padding: '8px 12px', cursor: 'pointer', color: '#F5F0E8', fontSize: 20 }}
         >
           MENU
         </button>
@@ -42,7 +45,7 @@ export default function Nav() {
           padding: '8px 20px', position: 'fixed', top: 73, left: 0, right: 0, zIndex: 99
         }}>
           <a href="#about" onClick={() => setMenuOpen(false)} style={{ color: '#F5F0E8', textDecoration: 'none', fontWeight: 700, fontSize: 16, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '14px 0', borderBottom: '1px solid rgba(139,163,184,0.1)' }}>About</a>
-          <a href="#content" onClick={() => setMenuOpen(false)} style={{ color: '#F5F0E8', textDecoration: 'none', fontWeight: 700, fontSize: 16, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '14px 0', borderBottom: '1px solid rgba(139,163,184,0.1)' }}>Content</a>
+          <a href="#youtube" onClick={() => setMenuOpen(false)} style={{ color: '#F5F0E8', textDecoration: 'none', fontWeight: 700, fontSize: 16, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '14px 0', borderBottom: '1px solid rgba(139,163,184,0.1)' }}>Content</a>
           <a href="#shop" onClick={() => setMenuOpen(false)} style={{ color: '#F5F0E8', textDecoration: 'none', fontWeight: 700, fontSize: 16, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '14px 0', borderBottom: '1px solid rgba(139,163,184,0.1)' }}>Shop</a>
           <a href="https://shop.reallybadsecurity.com" target="_blank" style={{ color: '#E8621A', textDecoration: 'none', fontWeight: 700, fontSize: 16, letterSpacing: '0.1em', textTransform: 'uppercase', padding: '14px 0' }}>Shop Now</a>
         </div>

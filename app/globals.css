@@ -24,3 +24,23 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Responsive nav: media queries can't override inline styles, so the
+   show/hide for the desktop links and mobile menu button live here. */
+.nav-links {
+  display: flex;
+}
+
+.nav-menu-btn {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .nav-menu-btn {
+    display: block;
+  }
+}

@@ -16,22 +16,6 @@ interface Channel {
   videos: Video[]
 }
 
-async function fetchPlaylistVideos(playlistId: string): Promise<Video[]> {
-  const apiKey = 'AIzaSyAb04yR_pXw_BZGauFzjURbu4aCLEJ6SUg'
-  const res = await fetch(
-    `https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&maxResults=50&playlistId=${playlistId}&key=${apiKey}`
-  )
-  const data = await res.json()
-  if (!data.items) return []
-  return data.items.map((item: any) => ({
-  id: item.snippet.resourceId.videoId,
-  title: item.snippet.title,
-  thumbnail: item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url,
-  publishedAt: new Date(item.snippet.publishedAt).toLocaleDateString()
-})).sort((a: Video, b: Video) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime())
-.slice(0, 3)
-}
-
 export default function YouTube() {
   const [channels, setChannels] = useState<Channel[]>([
     { name: 'Authenticated Access', playlistId: 'PLXw5m5eHQErZkjyPKvCFWEgKXxQPUTkyP', url: 'https://www.youtube.com/playlist?list=PLXw5m5eHQErZkjyPKvCFWEgKXxQPUTkyP', channelUrl: 'https://www.youtube.com/@authenticatedaccess', videos: [] },
@@ -41,14 +25,17 @@ export default function YouTube() {
 
   useEffect(() => {
     async function loadVideos() {
-      const updated = await Promise.all(
-        channels.map(async (channel) => {
-          const videos = await fetchPlaylistVideos(channel.playlistId)
-          return { ...channel, videos }
-        })
-      )
-      setChannels(updated)
-      setLoading(false)
+      try {
+        const res = await fetch('/api/youtube')
+        if (!res.ok) return
+        const { playlists } = await res.json() as { playlists: { playlistId: string; videos: Video[] }[] }
+        const byPlaylist = new Map(playlists.map((p) => [p.playlistId, p.videos]))
+        setChannels((prev) =>
+          prev.map((channel) => ({ ...channel, videos: byPlaylist.get(channel.playlistId) ?? [] }))
+        )
+      } finally {
+        setLoading(false)
+      }
     }
     loadVideos()
   }, [])

@@ -10,37 +10,13 @@ interface Product {
 }
 
 async function fetchProducts(): Promise<Product[]> {
-  const domain = 'shop.reallybadsecurity.com'
-  const token = '1ba727d8fd00fda437b6b37e585f86ec'
-
-  console.log('Domain:', domain)
-  console.log('Token exists:', !!token)
-
-  const res = await fetch(`https://${domain}/api/2025-01/graphql.json`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Storefront-Access-Token': token!,
-    },
-    body: JSON.stringify({
-      query: `{
-        products(first: 4) {
-          edges {
-            node {
-              id title handle
-              priceRange { minVariantPrice { amount } }
-              images(first: 1) { edges { node { url altText } } }
-            }
-          }
-        }
-      }`
-    })
-  })
-
-  console.log('Response status:', res.status)
-  const data = await res.json()
-  console.log('Data:', JSON.stringify(data))
-  return data.data.products.edges.map((e: { node: Product }) => e.node)
+  const res = await fetch('/api/shop')
+  if (!res.ok) {
+    const { error } = await res.json().catch(() => ({ error: 'Failed to load products' }))
+    throw new Error(error || 'Failed to load products')
+  }
+  const { products } = await res.json()
+  return products
 }
 
 export default function Shop() {
