@@ -33,8 +33,7 @@ export default function Hero() {
         </div>
       </div>
       <style>{`
-        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-14px); } }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes float { 0%, 100% { transform: translateY(-7px); } 50% { transform: translateY(7px); } }        @keyframes spin { to { transform: rotate(360deg); } }
         @keyframes glitch {
           0% { text-shadow: 2px 0 #00E5FF, -2px 0 #E8621A; }
           25% { text-shadow: -3px 0 #E8621A, 3px 0 #00E5FF; }

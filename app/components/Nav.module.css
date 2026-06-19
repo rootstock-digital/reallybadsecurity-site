@@ -1,0 +1,127 @@
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 40px;
+  background: rgba(13, 27, 42, 0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(232, 98, 26, 0.2);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.logoImage {
+  object-fit: contain;
+}
+
+.logoText {
+  font-family: sans-serif;
+  font-weight: 800;
+  font-size: 18px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: #F5F0E8;
+}
+
+.logoTextAccent {
+  color: #E8621A;
+  display: block;
+}
+
+/* display is controlled by the global .nav-links rule (responsive toggle) */
+.navLinks {
+  gap: 32px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.navLink {
+  color: #8BA3B8;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.navLink:hover {
+  background: #E8621A;
+  color: #0D1B2A;
+}
+
+.navCta {
+  background: #E8621A;
+  color: #0D1B2A;
+  padding: 8px 20px;
+  border-radius: 2px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+
+.navCta:hover {
+  background: #ff7a33;
+}
+
+/* display is controlled by the global .nav-menu-btn rule (responsive toggle) */
+.menuBtn {
+  background: none;
+  border: 1.5px solid rgba(139, 163, 184, 0.3);
+  border-radius: 2px;
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #F5F0E8;
+  font-size: 20px;
+}
+
+.dropdown {
+  display: flex;
+  flex-direction: column;
+  background: #0D1B2A;
+  border-bottom: 2px solid rgba(232, 98, 26, 0.3);
+  padding: 8px 20px;
+  position: fixed;
+  top: 73px;
+  left: 0;
+  right: 0;
+  z-index: 99;
+}
+
+.dropdownLink {
+  color: #F5F0E8;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(139, 163, 184, 0.1);
+}
+
+.dropdownCta {
+  color: #E8621A;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 14px 0;
+}
