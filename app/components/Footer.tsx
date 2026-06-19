@@ -15,6 +15,7 @@ export default function Footer() {
         ].map((link, i) => (
           <li key={i}><a href={link.url} target="_blank" style={{ fontSize: 13, color: 'rgba(139,163,184,0.5)', textDecoration: 'none' }}>{link.label}</a></li>
         ))}
+        <li><a href="/privacy" style={{ fontSize: 13, color: 'rgba(139,163,184,0.5)', textDecoration: 'none' }}>Privacy Policy</a></li>
       </ul>
     </footer>
   )
