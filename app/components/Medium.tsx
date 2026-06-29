@@ -47,9 +47,9 @@ export default function Medium() {
   }, [])
 
   return (
-    <section id="medium" style={{ padding: '80px 40px', background: '#142233', borderTop: '1px solid rgba(232,98,26,0.15)', position: 'relative', zIndex: 1 }}>
+    <section id="medium" className="px-section" style={{ paddingTop: 80, paddingBottom: 80, background: '#142233', borderTop: '1px solid rgba(232,98,26,0.15)', position: 'relative', zIndex: 1 }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 40 }}>
+        <div className="flex-sb" style={{ alignItems: 'center', marginBottom: 40 }}>
           <div>
             <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#E8621A', marginBottom: 12 }}>Read</div>
             <h2 style={{ fontWeight: 900, fontSize: 'clamp(28px, 4vw, 48px)', textTransform: 'uppercase', lineHeight: 0.95, color: '#F5F0E8' }}>
@@ -61,13 +61,13 @@ export default function Medium() {
           </a>
         </div>
         {loading ? (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+          <div className="grid-3col" style={{ gap: 16 }}>
             {[1,2,3].map(i => (
               <div key={i} style={{ background: '#1C2E42', height: 200, opacity: 0.5, borderRadius: 2 }} />
             ))}
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+          <div className="grid-3col" style={{ gap: 16 }}>
             {articles.map((article, i) => (
               <a key={i} href={article.link} target="_blank"
                 style={{ textDecoration: 'none', display: 'block', background: '#1C2E42', border: '1px solid rgba(139,163,184,0.08)', overflow: 'hidden', borderRadius: 2 }}

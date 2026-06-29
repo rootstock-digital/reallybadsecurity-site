@@ -41,7 +41,7 @@ export default function YouTube() {
   }, [])
 
   return (
-    <section id="youtube" style={{ padding: '100px 40px', background: '#0D1B2A', position: 'relative', zIndex: 1 }}>
+    <section id="youtube" className="px-section" style={{ paddingTop: 100, paddingBottom: 100, background: '#0D1B2A', position: 'relative', zIndex: 1 }}>
       <div style={{ maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#E8621A', marginBottom: 16 }}>Watch</div>
         <h2 style={{ fontWeight: 900, fontSize: 'clamp(36px, 5vw, 60px)', textTransform: 'uppercase', lineHeight: 0.95, marginBottom: 60, color: '#F5F0E8' }}>
@@ -49,7 +49,7 @@ export default function YouTube() {
         </h2>
         {channels.map((channel) => (
           <div key={channel.name} style={{ marginBottom: 80 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+            <div className="flex-sb" style={{ alignItems: 'center', marginBottom: 24 }}>
               <div style={{ fontWeight: 800, fontSize: 22, textTransform: 'uppercase', letterSpacing: '0.04em', color: '#F5F0E8' }}>
                 🎙️ {channel.name}
               </div>
@@ -63,13 +63,13 @@ export default function YouTube() {
               </div>
             </div>
             {loading ? (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+              <div className="grid-3col" style={{ gap: 16 }}>
                 {[1,2,3].map(i => (
                   <div key={i} style={{ background: '#142233', height: 200, opacity: 0.5, borderRadius: 2 }} />
                 ))}
               </div>
             ) : (
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+              <div className="grid-3col" style={{ gap: 16 }}>
                 {channel.videos.length > 0 ? channel.videos.map((video) => (
                   <a key={video.id} href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank"
                     style={{ textDecoration: 'none', display: 'block', background: '#142233', border: '1px solid rgba(139,163,184,0.08)', overflow: 'hidden', borderRadius: 2 }}
