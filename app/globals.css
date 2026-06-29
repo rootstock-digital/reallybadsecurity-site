@@ -44,3 +44,26 @@ body {
     display: block;
   }
 }
+
+/* Responsive layout utilities — same reason as nav above: inline styles
+   can't be overridden by media queries, so grids and section padding
+   use CSS classes instead. */
+.grid-2col { display: grid; grid-template-columns: 1fr 1fr; }
+.grid-3col { display: grid; grid-template-columns: repeat(3, 1fr); }
+.grid-4col { display: grid; grid-template-columns: repeat(4, 1fr); }
+.px-section { padding-left: 40px; padding-right: 40px; }
+.flex-sb { display: flex; justify-content: space-between; }
+.email-form { display: flex; }
+
+@media (max-width: 768px) {
+  .grid-2col { grid-template-columns: 1fr; }
+  .grid-3col { grid-template-columns: 1fr; }
+  .grid-4col { grid-template-columns: 1fr 1fr; }
+  .px-section { padding-left: 20px; padding-right: 20px; }
+  .flex-sb { flex-direction: column; gap: 16px; }
+  .hero-logo { display: none; }
+  /* Override inline border/radius styles when the email form stacks */
+  .email-form { flex-direction: column; }
+  .email-form input { border-right: 1.5px solid rgba(139,163,184,0.3) !important; border-radius: 2px !important; }
+  .email-form a { border-radius: 2px !important; text-align: center; }
+}

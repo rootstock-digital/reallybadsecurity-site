@@ -1,8 +1,8 @@
 'use client'
 export default function About() {
   return (
-    <section id="about" style={{ padding: '100px 40px', background: '#142233', borderTop: '1px solid rgba(232,98,26,0.15)', borderBottom: '1px solid rgba(232,98,26,0.15)', position: 'relative', zIndex: 1 }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'center' }}>
+    <section id="about" className="px-section" style={{ paddingTop: 100, paddingBottom: 100, background: '#142233', borderTop: '1px solid rgba(232,98,26,0.15)', borderBottom: '1px solid rgba(232,98,26,0.15)', position: 'relative', zIndex: 1 }}>
+      <div className="grid-2col" style={{ maxWidth: 1200, margin: '0 auto', gap: 80, alignItems: 'center' }}>
         <div>
           <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.3em', textTransform: 'uppercase', color: '#E8621A', marginBottom: 16 }}>Who We Are</div>
           <h2 style={{ fontWeight: 900, fontSize: 'clamp(36px, 5vw, 60px)', textTransform: 'uppercase', lineHeight: 0.95, letterSpacing: '-0.01em', marginBottom: 24, color: '#F5F0E8' }}>
