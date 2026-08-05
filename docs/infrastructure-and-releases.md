@@ -1,10 +1,24 @@
 # Infrastructure and releases
 
-## Current deployment model
+## Routine deployment model
 
 Really Bad Security is a Next.js application built with OpenNext and deployed as the `reallybadsecurity-site` Cloudflare Worker. The application uses an R2-backed OpenNext incremental cache.
 
-The repository defines a persistent staging environment, but it is not operational until the required Cloudflare dashboard actions below are complete. Production remains the only known live deployment target until then.
+The normal release path is deliberately simple:
+
+```text
+local development → committed main branch → GitHub Actions CI → production
+```
+
+Localhost is the only development environment. `main` is the source of truth.
+The deployed production version must correspond to one clean, pushed `main`
+commit whose **Validate site** workflow succeeded. Do not deploy a dirty
+worktree, use staging as a second working copy, or treat an active local server
+as release state.
+
+Shopify is the source of truth for products, prices, checkout, and policies.
+The site consumes Shopify data; neither local development nor staging may become
+an independent catalog or checkout system.
 
 ## Local development and build
 
@@ -24,6 +38,21 @@ npm run build
 
 Use `.env.local` for local secrets. Start from `.env.example`; do not commit `.env.local` or any real token.
 
+## Production release gate
+
+Before deploying, the release owner must:
+
+1. Confirm `git status --short` is empty.
+2. Confirm `HEAD` is pushed to `origin/main` and review the exact commit.
+3. Confirm the **Validate site** GitHub Actions run for that commit passed.
+4. Confirm the production Worker bindings and secrets are present; never put
+   secrets in source control or Wrangler `vars`.
+5. Record the prior production Worker version ID for rollback.
+
+The CI workflow runs typecheck, lint, editorial validation, and the production
+build. CI passing is necessary but does not replace the release owner's
+production smoke test.
+
 ## Production deployment
 
 The production deployment command is:
@@ -32,7 +61,10 @@ The production deployment command is:
 npm run deploy
 ```
 
-It runs the OpenNext Cloudflare build and deploys the resulting Worker through the configured Wrangler project. Do not deploy directly to production for unvalidated Shopify changes.
+It runs the OpenNext Cloudflare build and deploys the resulting Worker through
+the configured production Wrangler project. Immediately record the Git commit
+and Worker version ID, then smoke-test the homepage, shop, a product page, cart,
+and any changed integration.
 
 The Worker requires these Cloudflare bindings:
 
@@ -43,34 +75,25 @@ The Worker requires these Cloudflare bindings:
 
 `SHOPIFY_STORE_DOMAIN` is non-secret Worker configuration. `SHOPIFY_STOREFRONT_TOKEN` and `YOUTUBE_API_KEY` must be configured as Cloudflare Worker secrets, not Wrangler `vars`.
 
-## Staging environment
+## Optional staging exception
 
-The configured staging target is the Wrangler `staging` environment, which creates the separate `reallybadsecurity-site-staging` Worker identity. Its approved custom domain is `staging.reallybadsecurity.com`. The `workers.dev` endpoint is disabled so the custom domain can be protected by Cloudflare Access restricted to the site owner only.
+Staging is not part of routine RBS delivery. Do not deploy to it as an ordinary
+step between localhost and production, and do not make changes directly in its
+dashboard or treat it as a second source of truth.
 
-Staging has its own `reallybadsecurity-site-staging-opennext-cache` R2 incremental-cache bucket and its `WORKER_SELF_REFERENCE` binding targets `reallybadsecurity-site-staging`. It retains the required `ASSETS` and `IMAGES` bindings.
+The checked-in `staging` Wrangler configuration is legacy and is not an
+authorized deployment target. In particular, it must not be used while it
+references production Shopify configuration. Do not run `npm run deploy:staging`
+until the isolated exception requirements below have been completed and reviewed.
 
-Staging must use a separate Shopify development/test store and a separate least-privilege Storefront API token. Never configure the production Shopify domain, token, catalog, customer data, or checkout in staging. Shopify storefront and product integration work remains blocked until the test store is ready.
-
-Before the first staging deployment, an authorized Cloudflare operator must complete these dashboard actions:
-
-1. Confirm the Cloudflare account and zone own `staging.reallybadsecurity.com`, with no conflicting DNS record or Worker route.
-2. Create the `reallybadsecurity-site-staging-opennext-cache` R2 bucket and grant the staging Worker binding access only to that bucket.
-3. Confirm the account can use the existing Cloudflare Images binding for staging and review any applicable usage or access controls.
-4. Create or confirm the `reallybadsecurity-site-staging` Worker environment through the approved deployment process; do not reuse the production Worker service, self-reference, cache bucket, or deployment version.
-5. Ensure the custom domain is active with valid TLS, then create a Cloudflare Access application and policy that permits only the site owner. Confirm no other route or `workers.dev` endpoint bypasses that policy.
-6. Configure only staging-scoped Worker secrets through Cloudflare's secret controls: `SHOPIFY_STOREFRONT_TOKEN` for the Shopify test store and `YOUTUBE_API_KEY` for a staging-appropriate restricted key. Do not put either value in `wrangler.jsonc`, source control, or `vars`.
-7. Set `SHOPIFY_STORE_DOMAIN` to the approved Shopify development/test store domain in the staging Worker configuration before deployment. The repository placeholder is intentionally not deployable for storefront testing.
-8. Record the staging Worker deployment/version identifier, secret owners, Access-policy owner, and rollback operator.
-
-After those prerequisites are complete, deploy staging only with:
-
-```bash
-npm run deploy:staging
-```
-
-Verify the staging hostname through the owner-only Access policy, then check the homepage, static assets, `/api/youtube`, `/api/shop`, response headers, cache behavior, and expected error paths. Do not treat a staging Shopify check as valid until the separate test store and staging-only token are confirmed.
-
-For staging rollback, retain the prior known-good staging Worker deployment/version. If staging degrades, stop further staging deployments, restore that prior staging version through the approved Cloudflare operation, and repeat the staging checks. Confirm the exact dashboard rollback action and deployment-retention period before relying on this process.
+Use a staging environment only for a specifically approved high-risk change
+that cannot be safely validated locally and in CI. Before it is used, an
+authorized Cloudflare operator must establish a separate Worker identity, custom
+domain, cache/data bindings, secrets, and a separate Shopify test store/token.
+Production domains, catalog/customer data, checkout, tokens, or cache bindings
+must never be reused in staging. Record the owner, purpose, test plan, expiry,
+and rollback version before deployment; decommission or disable access after the
+exception is complete.
 
 ## Secret ownership and handling
 
@@ -81,14 +104,13 @@ For staging rollback, retain the prior known-good staging Worker deployment/vers
 
 ## Pre-release checks
 
-Before any release:
+Before any production release:
 
-1. Confirm the worktree contains only intended changes.
-2. Review the environment-variable and Worker-binding requirements against the target environment.
-3. Run the repository's source checks, including lint and build checks appropriate to the change.
-4. Validate Shopify-related behavior outside production once a preview/staging environment is available.
-5. Confirm effective response headers, caching, error handling, and external-integration behavior for the target environment.
-6. Obtain the required release approval and record the deployed revision.
+1. Satisfy the production release gate above.
+2. Confirm effective response headers, caching, error handling, and changed
+   external-integration behavior after deployment.
+3. Record the deployed Git SHA, Cloudflare Worker version ID, release owner,
+   timestamp, and rollback version in the approved operational record.
 
 ## Rollback expectations
 

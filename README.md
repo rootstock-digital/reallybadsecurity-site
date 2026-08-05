@@ -18,12 +18,26 @@ npm run build
 
 ## Deployment
 
-Production deploys use:
+RBS has one routine release path:
+
+```text
+local development → committed main branch → GitHub Actions CI → production
+```
+
+Localhost is for development only. `main` is the source of truth, and production
+is deployed only from a clean, pushed commit after the **Validate site** GitHub
+Actions workflow passes. Shopify remains the source of truth for catalog and
+checkout data.
+
+After those conditions are met, deploy production with:
 
 ```bash
 npm run deploy
 ```
 
-This deploys the OpenNext build to the configured production Cloudflare Worker. A staging configuration exists but is not operational until its Cloudflare dashboard prerequisites are complete; do not deploy unvalidated Shopify changes directly to production.
+This deploys the OpenNext build to the configured production Cloudflare Worker.
+Staging is not part of the routine RBS release path and must never be used as a
+second working copy of the site or with production Shopify credentials.
 
-See [Infrastructure and releases](docs/infrastructure-and-releases.md) for bindings, secret handling, pre-release checks, and rollback expectations.
+See [Infrastructure and releases](docs/infrastructure-and-releases.md) for the
+release gate, bindings, secret handling, and rollback expectations.
