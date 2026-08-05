@@ -1,6 +1,7 @@
 interface Video {
   id: string
   title: string
+  description: string
   thumbnail: string
   publishedAt: string
 }
@@ -16,6 +17,7 @@ interface PlaylistItem {
   snippet: {
     resourceId: { videoId: string }
     title: string
+    description?: string
     thumbnails: { medium?: { url: string }; default?: { url: string } }
     publishedAt: string
   }
@@ -34,6 +36,7 @@ async function fetchPlaylistVideos(playlistId: string, apiKey: string): Promise<
     .map((item: PlaylistItem) => ({
       id: item.snippet.resourceId.videoId,
       title: item.snippet.title,
+      description: item.snippet.description?.replace(/\s+/g, ' ').trim() ?? '',
       thumbnail: item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url || '',
       publishedAt: new Date(item.snippet.publishedAt).toLocaleDateString(),
     }))

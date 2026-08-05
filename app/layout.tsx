@@ -12,9 +12,9 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const siteTitle = "Really Bad Security — Cybersecurity for Humans";
+const siteTitle = "Really Bad Security — Security Signals";
 const siteDescription =
-  "Cybersecurity made human. We break down the complicated stuff into plain language — no jargon, no buzzwords, no fear-mongering.";
+  "Practical security thinking, technology commentary, and sharp humor about the bad defaults underneath.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://reallybadsecurity.com"),
@@ -26,13 +26,10 @@ export const metadata: Metadata = {
   keywords: [
     "cybersecurity",
     "security content",
-    "security for humans",
-    "cybersecurity education",
-    "infosec",
+    "security commentary",
+    "technology culture",
+    "AI commentary",
   ],
-  alternates: {
-    canonical: "/",
-  },
   openGraph: {
     type: "website",
     url: "https://reallybadsecurity.com",

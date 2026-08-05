@@ -11,7 +11,9 @@
 	// Non-secret config. Secrets (e.g. SHOPIFY_STOREFRONT_TOKEN, YOUTUBE_API_KEY)
 	// are set with `wrangler secret put`, not here.
 	"vars": {
-		"SHOPIFY_STORE_DOMAIN": "shop.reallybadsecurity.com"
+		"SHOPIFY_STORE_DOMAIN": "shop.reallybadsecurity.com",
+		"EDITORIAL_ACCESS_TEAM_DOMAIN": "https://cloudcon-website-pages.cloudflareaccess.com",
+		"EDITORIAL_ACCESS_AUDIENCE": "fde85b45f787a08e889af3eb8364fb0c20cd2f529040256501683767cb7c1aa8"
 	},
 	"assets": {
 		"directory": ".open-next/assets",
@@ -36,9 +38,63 @@
 			"bucket_name": "reallybadsecurity-site-opennext-cache"
 		}
 	],
+	"d1_databases": [
+		{
+			"binding": "EDITORIAL_DB",
+			"database_name": "reallybadsecurity-editorial",
+			"database_id": "c6ef13b4-3612-48cb-99da-529d671f9962",
+			"migrations_dir": "migrations"
+		}
+	],
 	"images": {
 		// Enable image optimization
 		// see https://opennext.js.org/cloudflare/howtos/image
 		"binding": "IMAGES"
+	},
+	"env": {
+		"staging": {
+			// Wrangler names this environment's Worker reallybadsecurity-site-staging.
+			// Disable workers.dev so Cloudflare Access on the custom domain is the only entry point.
+			"workers_dev": false,
+			"routes": [
+				{
+					"pattern": "staging.reallybadsecurity.com",
+					"custom_domain": true
+				}
+			],
+			// Staging reads the production catalog; checkout still remains Shopify-hosted.
+			"vars": {
+				"SHOPIFY_STORE_DOMAIN": "shop.reallybadsecurity.com",
+				"EDITORIAL_ACCESS_TEAM_DOMAIN": "https://cloudcon-website-pages.cloudflareaccess.com",
+				"EDITORIAL_ACCESS_AUDIENCE": "c32846504406ca1a89e1824500afaa8aac5f275fbf2989fc46b7edab56f3d6cf"
+			},
+			"assets": {
+				"directory": ".open-next/assets",
+				"binding": "ASSETS"
+			},
+			"services": [
+				{
+					"binding": "WORKER_SELF_REFERENCE",
+					"service": "reallybadsecurity-site-staging"
+				}
+			],
+			"r2_buckets": [
+				{
+					"binding": "NEXT_INC_CACHE_R2_BUCKET",
+					"bucket_name": "reallybadsecurity-site-staging-opennext-cache"
+				}
+			],
+			"d1_databases": [
+				{
+					"binding": "EDITORIAL_DB",
+					"database_name": "reallybadsecurity-editorial-staging",
+					"database_id": "ce8a80cb-12b2-4d1a-ba04-0c60e9887211",
+					"migrations_dir": "migrations"
+				}
+			],
+			"images": {
+				"binding": "IMAGES"
+			}
+		}
 	}
 }

@@ -1,9 +1,31 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn.shopify.com",
+        pathname: "/**",
+      },
+      {
+        protocol: "https",
+        hostname: "shop.reallybadsecurity.com",
+        pathname: "/cdn/shop/**",
+      },
+    ],
+  },
   async headers() {
     return [
+      {
+        source: "/editorial/:path*",
+        headers: [
+          {
+            key: "Cache-Control",
+            value: "private, no-store, max-age=0, must-revalidate",
+          },
+        ],
+      },
       {
         source: "/(.*)",
         headers: [
