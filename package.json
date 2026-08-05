@@ -7,7 +7,7 @@
     "build": "node scripts/build-editorial-bundle.mjs && next build",
     "ci": "npm run typecheck && npm run lint && npm run validate:editorial && npm run build",
     "deploy": "npm run deploy:production",
-    "deploy:production": "opennextjs-cloudflare build && opennextjs-cloudflare deploy --env=\"\"",
+    "deploy:production": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
     "deploy:staging": "opennextjs-cloudflare build && opennextjs-cloudflare deploy --env staging",
     "start": "next start",
     "lint": "eslint",
