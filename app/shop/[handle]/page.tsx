@@ -10,7 +10,11 @@ import { getShopProduct, isShopifyConfigured } from '../../modules/commerce/shop
 
 export const dynamic = 'force-dynamic'
 
-export async function generateMetadata({ params }: PageProps<'/shop/[handle]'>): Promise<Metadata> {
+type ShopProductPageProps = {
+  params: Promise<{ handle: string }>
+}
+
+export async function generateMetadata({ params }: ShopProductPageProps): Promise<Metadata> {
   const { handle } = await params
   if (!isShopifyConfigured()) return { title: 'RBS Merch' }
   const product = await getShopProduct(handle).catch(() => null)
@@ -21,7 +25,7 @@ export async function generateMetadata({ params }: PageProps<'/shop/[handle]'>):
   } : { title: 'RBS Merch' }
 }
 
-export default async function ProductPage({ params }: PageProps<'/shop/[handle]'>) {
+export default async function ProductPage({ params }: ShopProductPageProps) {
   const { handle } = await params
   if (!isShopifyConfigured()) notFound()
   const product = await getShopProduct(handle).catch(() => null)
