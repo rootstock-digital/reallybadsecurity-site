@@ -1,5 +1,9 @@
 Really Bad Security is a [Next.js](https://nextjs.org) application built with OpenNext and deployed to Cloudflare Workers.
 
+This repository is a client implementation of Rootstock Starter, not the platform source of truth. Reusable capabilities belong in Starter; RBS owns its branding, content, integrations, and client-specific business rules. The protected client-facing workspace is **Really Bad Security Workspace** at `/workspace`.
+
+See [the platform baseline](docs/rootstock-platform-baseline.md) and [Workspace foundation](docs/workspace-foundation.md) before promoting or migrating platform functionality.
+
 ## Getting Started
 
 Run the development server:

@@ -1,5 +1,6 @@
 'use client'
 import Image from 'next/image'
+import Link from 'next/link'
 import { useState } from 'react'
 import styles from './Nav.module.css'
 
@@ -19,7 +20,7 @@ export default function Nav() {
           <li><a href="#about" className={styles.navLink}>About</a></li>
           <li><a href="#shop" className={styles.navLink}>Shop</a></li>
           <li><a href="#youtube" className={styles.navLink}>Content</a></li>
-          <li><a href="https://shop.reallybadsecurity.com" target="_blank" rel="noopener noreferrer" className={styles.navCta}>Shop Now</a></li>
+          <li><Link href="/shop" className={styles.navCta}>Shop Now</Link></li>
         </ul>
         <button
           type="button"
@@ -37,7 +38,7 @@ export default function Nav() {
           <a href="#about" onClick={() => setMenuOpen(false)} className={styles.dropdownLink}>About</a>
           <a href="#youtube" onClick={() => setMenuOpen(false)} className={styles.dropdownLink}>Content</a>
           <a href="#shop" onClick={() => setMenuOpen(false)} className={styles.dropdownLink}>Shop</a>
-          <a href="https://shop.reallybadsecurity.com" target="_blank" rel="noopener noreferrer" className={styles.dropdownCta}>Shop Now</a>
+          <Link href="/shop" className={styles.dropdownCta}>Shop Now</Link>
         </div>
       )}
     </>

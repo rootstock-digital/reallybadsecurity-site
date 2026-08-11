@@ -20,7 +20,7 @@ export default function SiteFooter() {
           <p><Link href="/editorial-standards">Editorial standards</Link></p>
           <p><Link href="/contact">Contact us</Link></p>
           <p><Link href="/join">Join the community</Link></p>
-          <p><a href="https://shop.reallybadsecurity.com">Shop RBS Merch →</a></p>
+          <p><Link href="/shop">Shop RBS Merch →</Link></p>
         </div>
       </div>
       <div className="container footer-legal">

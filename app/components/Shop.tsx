@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
 interface Product {
@@ -44,9 +45,9 @@ export default function Shop() {
           <h2 style={{ fontWeight: 900, fontSize: 'clamp(36px, 5vw, 60px)', textTransform: 'uppercase', lineHeight: 0.95, color: '#F5F0E8' }}>
             The <span style={{ color: '#E8621A' }}>Shop</span>
           </h2>
-          <a href="https://shop.reallybadsecurity.com" target="_blank" style={{ padding: '12px 28px', background: '#E8621A', color: '#0D1B2A', borderRadius: 2, fontSize: 13, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap' }}>
+          <Link href="/shop" style={{ padding: '12px 28px', background: '#E8621A', color: '#0D1B2A', borderRadius: 2, fontSize: 13, fontWeight: 800, letterSpacing: '0.1em', textTransform: 'uppercase', textDecoration: 'none', whiteSpace: 'nowrap' }}>
             Visit the Shop
-          </a>
+          </Link>
         </div>
         {loading ? (
           <div className="grid-4col" style={{ gap: 2 }}>
@@ -57,7 +58,7 @@ export default function Shop() {
         ) : (
           <div className="grid-4col" style={{ gap: 2 }}>
             {products.map(product => (
-              <a key={product.id} href={`https://shop.reallybadsecurity.com/products/${product.handle}`} target="_blank"
+              <Link key={product.id} href={`/shop/${product.handle}`}
                 style={{ textDecoration: 'none', display: 'block', background: '#1C2E42', border: '1px solid rgba(139,163,184,0.08)', overflow: 'hidden' }}
                 onMouseEnter={e => (e.currentTarget.style.borderColor = '#E8621A')}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(139,163,184,0.08)')}>
@@ -69,7 +70,7 @@ export default function Shop() {
                   <div style={{ fontWeight: 800, fontSize: 14, textTransform: 'uppercase', letterSpacing: '0.04em', color: '#F5F0E8', marginBottom: 8 }}>{product.title}</div>
                   <div style={{ fontSize: 18, fontWeight: 700, color: '#E8621A' }}>${parseFloat(product.priceRange.minVariantPrice.amount).toFixed(2)}</div>
                 </div>
-              </a>
+              </Link>
             ))}
           </div>
         )}

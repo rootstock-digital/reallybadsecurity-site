@@ -62,9 +62,9 @@
 					"custom_domain": true
 				}
 			],
-			// Staging reads the production catalog; checkout still remains Shopify-hosted.
+			// Staging uses the isolated Shopify development store; never point this at production.
 			"vars": {
-				"SHOPIFY_STORE_DOMAIN": "shop.reallybadsecurity.com",
+				"SHOPIFY_STORE_DOMAIN": "really-bad-security-staging.myshopify.com",
 				"EDITORIAL_ACCESS_TEAM_DOMAIN": "https://cloudcon-website-pages.cloudflareaccess.com",
 				"EDITORIAL_ACCESS_AUDIENCE": "c32846504406ca1a89e1824500afaa8aac5f275fbf2989fc46b7edab56f3d6cf"
 			},
@@ -82,6 +82,10 @@
 				{
 					"binding": "NEXT_INC_CACHE_R2_BUCKET",
 					"bucket_name": "reallybadsecurity-site-staging-opennext-cache"
+				},
+				{
+					"binding": "GOODS_ASSETS",
+					"bucket_name": "reallybadsecurity-goods-staging-assets"
 				}
 			],
 			"d1_databases": [

@@ -26,19 +26,19 @@ const homePreviewSlugs = [
 const featuredMerch = [
   {
     title: 'Vibe Codes Only Tee',
-    href: 'https://shop.reallybadsecurity.com/products/vibe-codes-only-tee',
+    href: '/shop/vibe-codes-only-tee',
     image: 'https://shop.reallybadsecurity.com/cdn/shop/files/unisex-staple-t-shirt-black-front-6a725a4a7f6ba.jpg?v=1785879126&width=1946',
     alt: 'Product photograph of the Vibe Codes Only T-shirt.',
   },
   {
     title: 'Currently Being Shadowbanned Tee',
-    href: 'https://shop.reallybadsecurity.com/products/currently-being-shadowbanned-tee-1',
+    href: '/shop/currently-being-shadowbanned-tee-1',
     image: 'https://shop.reallybadsecurity.com/cdn/shop/files/unisex-staple-t-shirt-black-front-6a724c559439c.jpg?v=1785875554&width=1946',
     alt: 'Product photograph of the Currently Being Shadowbanned T-shirt.',
   },
   {
     title: 'Do You Even Vibe Code Bro Tee',
-    href: 'https://shop.reallybadsecurity.com/products/do-you-even-vibe-code-bro-tee',
+    href: '/shop/do-you-even-vibe-code-bro-tee',
     image: 'https://shop.reallybadsecurity.com/cdn/shop/files/unisex-staple-t-shirt-black-front-2-6a725714ec2e2.jpg?v=1785878303&width=1946',
     alt: 'Product photograph of the Do You Even Vibe Code Bro T-shirt.',
   },
@@ -123,7 +123,7 @@ export default async function Home() {
             <div className="merch-intro">
               <h3>Security is serious. The industry is ridiculous.</h3>
               <p>RBS merch is for people who do the work, survive the jargon, and still have enough perspective to laugh at the absurd parts.</p>
-              <a href="https://shop.reallybadsecurity.com">Visit RBS Merch →</a>
+              <Link href="/shop">Visit RBS Merch →</Link>
             </div>
             <div className="merch-featured" aria-label="Featured RBS merch">
               {featuredMerch.map((product) => <a className="merch-card" href={product.href} key={product.href}>

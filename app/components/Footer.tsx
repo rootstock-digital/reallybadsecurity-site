@@ -8,7 +8,7 @@ export default function Footer() {
       <p style={{ fontSize: 13, color: 'rgba(139,163,184,0.5)' }}>© 2026 Really Bad Security. Making bad security good.</p>
       <ul style={{ display: 'flex', gap: 24, listStyle: 'none', margin: 0, padding: 0 }}>
         {[
-          { label: 'Shop', url: 'https://shop.reallybadsecurity.com' },
+          { label: 'Shop', url: '/shop' },
           { label: 'Medium', url: 'https://medium.com/@reallybadsecurity' },
           { label: 'YouTube', url: 'https://www.youtube.com/@reallybadsecurity' },
           { label: 'Newsletter', url: 'https://reallybadsecurity.beehiiv.com' },

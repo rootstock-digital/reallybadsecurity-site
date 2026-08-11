@@ -34,14 +34,17 @@ export function canPerformEditorialAction(actor: EditorialActor, action: Editori
   return actionRoles[action].some((role) => actor.roles.includes(role));
 }
 
+export function canEditEditorialEntry(actor: EditorialActor, authorSubject: string): boolean {
+  if (!canPerformEditorialAction(actor, "updated")) return false;
+  return actor.roles.some((role) => role !== "writer") || actor.subject === authorSubject;
+}
+
 export function getAllowedEditorialTransitions(currentStatus: EditorialStatus): readonly EditorialStatus[] {
   return allowedTransitions[currentStatus];
 }
 
 export function assertEditorialEditPermission(actor: EditorialActor, authorSubject: string): void {
-  assertEditorialPermission(actor, "updated");
-  const hasElevatedRole = actor.roles.some((role) => role !== "writer");
-  if (!hasElevatedRole && actor.subject !== authorSubject) {
+  if (!canEditEditorialEntry(actor, authorSubject)) {
     throw new EditorialAccessError("Writers may update only their own drafts.");
   }
 }

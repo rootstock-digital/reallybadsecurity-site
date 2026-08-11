@@ -1,6 +1,7 @@
 export {
   assertEditorialEditPermission,
   assertEditorialPermission,
+  canEditEditorialEntry,
   canPerformEditorialAction,
   getAllowedEditorialTransitions,
   getEditorialTransitionAction,
@@ -10,12 +11,18 @@ export { createD1EditorialRepository, type EditorialD1Database } from "./editori
 export { getAccessConfig, getVerifiedEditorialActor, getVerifiedEditorialIdentity } from "./editorial-admin.access";
 export { getEditorialWorkspace } from "./editorial-admin.runtime";
 export {
+  editorialAdminRoles,
   editorialRoles,
   EditorialAccessError,
   EditorialConflictError,
   EditorialValidationError,
   type EditorialActor,
+  type EditorialAdminAction,
+  type EditorialAdminActor,
+  type EditorialAdminDraftInput,
   type EditorialAdminEntry,
+  type EditorialAdminRepository,
+  type EditorialAdminRole,
   type EditorialAuditAction,
   type EditorialDraftInput,
   type EditorialIdentity,
