@@ -21,7 +21,7 @@ export default async function ShopPage() {
   const productGroups = products ? groupProductsByMeaning(products) : []
 
   return <EditorialShell>
-    <header className="read-page-header">
+    <header className="read-page-header shop-page-header">
       <div className="container">
         <span className="eyebrow">Shop</span>
         <h1>The Merch</h1>
@@ -29,7 +29,7 @@ export default async function ShopPage() {
       </div>
     </header>
 
-    <section className="section shop-section">
+    <section className="section shop-section shop-page-section">
       <div className="container">
         <div className="shop-cart-row"><ShopCart /></div>
         {!configured ? <ShopMessage title="The shop is being connected." /> : !products ? <ShopMessage title="The shop is temporarily unavailable." /> : !productGroups.length ? <ShopMessage title="The first collection is on its way." /> : <div className="shop-collections">
