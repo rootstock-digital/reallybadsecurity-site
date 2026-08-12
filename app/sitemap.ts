@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { headers } from "next/headers";
 import { rbsEditorialConfig, rbsEditorialSchemaOptions, rbsEditorialSite } from "./config/editorial";
 import { getRequestPublicEditorialEntries } from "./modules/editorial/editorial.request-loader";
 import { getEditorialSitemapEntries } from "./modules/editorial/editorial.sitemap";
@@ -6,6 +7,7 @@ import { getEditorialSitemapEntries } from "./modules/editorial/editorial.sitema
 export const dynamic = "force-dynamic";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  await headers();
   const routes = ["", "/about", "/contact", "/editorial-standards", "/watch", "/shop", "/join"];
   const editorialEntries = await getRequestPublicEditorialEntries(rbsEditorialSchemaOptions);
 
