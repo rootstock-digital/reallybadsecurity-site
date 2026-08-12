@@ -47,7 +47,10 @@ export function EditorialNote({ entry, relatedEntries = [] }: { entry: Editorial
 
 export function EditorialPreviewCard({ entry, variant = 'standard', href, kicker, dateLabel, showKicker = true, summary }: { entry: EditorialEntry; variant?: 'featured' | 'standard' | 'home' | 'series'; href?: string; kicker?: string; dateLabel?: string; showKicker?: boolean; summary?: string }) {
   const { frontmatter } = entry
-  const cover = variant === 'home' || variant === 'featured' ? sharedHomeEditorialCover : getApprovedLocalCover(entry)
+  const localCover = getApprovedLocalCover(entry)
+  const cover = variant === 'home' || variant === 'featured'
+    ? sharedHomeEditorialCover
+    : localCover ?? (variant === 'standard' ? sharedHomeEditorialCover : undefined)
   const className = `editorial-preview-card editorial-preview-card-${variant}${cover ? ' has-cover' : ''}`
   const articleHref = href ?? `/security-signals/${frontmatter.slug}`
   const titleInArtwork = variant === 'home' || variant === 'standard' || variant === 'featured'
