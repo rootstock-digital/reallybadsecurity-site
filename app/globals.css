@@ -290,8 +290,8 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
 .editorial-preview-card-standard .editorial-preview-art h2 { place-items: center; text-align: center; }
 .editorial-preview-card-standard .editorial-preview-art h2 a { width: 100%; }
 .editorial-preview-art span { position: absolute; inset: 12% 8%; display: grid; place-items: center; color: var(--rbs-navy); font-family: var(--font-geist-sans), Arial, sans-serif; font-size: clamp(.85rem, 1.45vw, 1.65rem); font-weight: 900; letter-spacing: -.045em; line-height: .92; text-align: center; text-transform: uppercase; }
-.editorial-preview-card-home, .video-experience-home .video-card { display: flex; flex-direction: column; height: auto; }
-.editorial-preview-card-home .editorial-preview-art, .editorial-preview-card-home .editorial-preview-image, .video-experience-home .video-card img, .video-experience-home .video-thumbnail-fallback { flex: 0 0 auto; width: 100%; height: auto; aspect-ratio: 16 / 9; align-self: stretch; object-fit: cover; }
+.editorial-preview-card-home, .video-experience-home .video-card { display: flex; flex-direction: row; height: clamp(12rem, 16vw, 15rem); }
+.editorial-preview-card-home .editorial-preview-art, .editorial-preview-card-home .editorial-preview-image, .video-experience-home .video-card img, .video-experience-home .video-thumbnail-fallback { flex: 0 0 42%; width: 42%; height: 100%; aspect-ratio: auto; align-self: stretch; object-fit: cover; }
 .editorial-preview-card-home .editorial-preview-art h2 { font-size: clamp(.95rem, 1.55vw, 1.45rem); }
 .editorial-preview-card-home .editorial-preview-art h2.editorial-preview-title-long { font-size: clamp(.9rem, 1.35vw, 1.35rem); }
 .editorial-preview-card-home .editorial-preview-art h2.editorial-preview-title-dense { font-size: clamp(.78rem, 1vw, 1.08rem); }
