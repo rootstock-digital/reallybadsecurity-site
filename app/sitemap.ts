@@ -3,6 +3,8 @@ import { rbsEditorialConfig, rbsEditorialSchemaOptions, rbsEditorialSite } from 
 import { getRequestPublicEditorialEntries } from "./modules/editorial/editorial.request-loader";
 import { getEditorialSitemapEntries } from "./modules/editorial/editorial.sitemap";
 
+export const dynamic = "force-dynamic";
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = ["", "/about", "/contact", "/editorial-standards", "/watch", "/shop", "/join"];
   const editorialEntries = await getRequestPublicEditorialEntries(rbsEditorialSchemaOptions);
