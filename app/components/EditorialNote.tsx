@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 import type { EditorialEntry } from "../modules/editorial/editorial.types";
@@ -59,7 +60,7 @@ export function EditorialPreviewCard({ entry, variant = 'standard', href, kicker
       : ''
 
   return <article className={className}>
-    {cover ? titleInArtwork ? <div className="editorial-preview-art editorial-preview-art-titled"><img className="editorial-preview-image" src={cover.src} alt={cover.alt} /><h2 className={`editorial-preview-title${titleSizeClass}`}><Link href={articleHref}>{frontmatter.title}</Link></h2></div> : variant === 'series' ? <div className="editorial-preview-art"><img className="editorial-preview-image" src={cover.src} alt={cover.alt} /><span aria-hidden="true">{frontmatter.title}</span></div> : <img className="editorial-preview-image" src={cover.src} alt={cover.alt} /> : null}
+    {cover ? titleInArtwork ? <div className="editorial-preview-art editorial-preview-art-titled"><Image className="editorial-preview-image" src={cover.src} alt={cover.alt} width={1200} height={675} /><h2 className={`editorial-preview-title${titleSizeClass}`}><Link href={articleHref}>{frontmatter.title}</Link></h2></div> : variant === 'series' ? <div className="editorial-preview-art"><Image className="editorial-preview-image" src={cover.src} alt={cover.alt} width={1200} height={675} /><span aria-hidden="true">{frontmatter.title}</span></div> : <Image className="editorial-preview-image" src={cover.src} alt={cover.alt} width={1200} height={675} /> : null}
     <div className="editorial-preview-copy">
       {showKicker && !titleInArtwork ? <span className="label">{kicker ?? `${frontmatter.format} · published`}</span> : null}
       {!titleInArtwork ? <Link href={articleHref}><h2>{frontmatter.title}</h2></Link> : null}

@@ -1,8 +1,10 @@
+import Image from 'next/image'
+
 export default function Footer() {
   return (
     <footer style={{ padding: '40px', borderTop: '1px solid rgba(139,163,184,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', position: 'relative', zIndex: 1, background: '#0D1B2A', flexWrap: 'wrap', gap: 20 }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <img src="/rbs-shield-only-logo.png" alt="Really Bad Security" style={{ height: 36, width: 36, objectFit: 'contain' }} />
+        <Image src="/rbs-shield-only-logo.png" alt="Really Bad Security" width={36} height={36} style={{ height: 36, width: 36, objectFit: 'contain' }} />
         <span style={{ fontWeight: 700, fontSize: 14, letterSpacing: '0.05em', color: 'rgba(139,163,184,0.6)', textTransform: 'uppercase' }}>Really Bad Security</span>
       </div>
       <p style={{ fontSize: 13, color: 'rgba(139,163,184,0.5)' }}>© 2026 Really Bad Security. Making bad security good.</p>

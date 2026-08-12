@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 interface Video {
@@ -15,6 +16,8 @@ interface Channel {
   channelUrl: string
   videos: Video[]
 }
+
+const remoteImageLoader = ({ src }: { src: string }) => src
 
 export default function YouTube() {
   const [channels, setChannels] = useState<Channel[]>([
@@ -75,7 +78,7 @@ export default function YouTube() {
                     style={{ textDecoration: 'none', display: 'block', background: '#142233', border: '1px solid rgba(139,163,184,0.08)', overflow: 'hidden', borderRadius: 2 }}
                     onMouseEnter={e => (e.currentTarget.style.borderColor = '#E8621A')}
                     onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(139,163,184,0.08)')}>
-                    <img src={video.thumbnail} alt={video.title} style={{ width: '100%', height: 180, objectFit: 'contain', background: '#0D1B2A' }} />
+                    <Image loader={remoteImageLoader} unoptimized src={video.thumbnail} alt={video.title} width={640} height={360} style={{ width: '100%', height: 180, objectFit: 'contain', background: '#0D1B2A' }} />
                     <div style={{ padding: '16px' }}>
                       <div style={{ fontWeight: 700, fontSize: 14, color: '#F5F0E8', lineHeight: 1.4, marginBottom: 8 }}>{video.title}</div>
                       <div style={{ fontSize: 12, color: '#8BA3B8' }}>{video.publishedAt}</div>

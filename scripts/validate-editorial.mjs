@@ -3,6 +3,7 @@ import { fileURLToPath } from "node:url";
 import { join, relative, resolve, sep } from "node:path";
 
 const statuses = ["draft", "in_review", "scheduled", "published", "retired"];
+const checkExternalLinks = process.argv.includes("--check-external-links");
 const knownApplicationRouteSegments = new Set([
   "about",
   "api",
@@ -247,7 +248,7 @@ function validateEntry(record, filePath, diagnostics, publicMediaDirectory) {
   if (!linkTextSuppressions) valid = false;
 
   if (!id || !slug || !statuses.includes(status) || !relatedIds || !media || !linkTextSuppressions) return null;
-  return { filePath, id, slug, status, publishedAt, relatedIds, image, media, linkTextSuppressions, valid };
+  return { filePath, id, slug, status, publishedAt, relatedIds, image, media, sources: Array.isArray(record.sources) ? record.sources : [], linkTextSuppressions, valid };
 }
 
 function validateMediaManifest(value, filePath, diagnostics) {
@@ -617,7 +618,7 @@ function validateMarkdownLink(link, anchors, filePath, diagnostics, directories,
     return;
   }
   if (isSafeHttpsUrl(href)) {
-    addWarning(diagnostics, filePath, "body.link", `external HTTPS link "${href}" skipped without network validation.`, link.line);
+    if (!checkExternalLinks) addWarning(diagnostics, filePath, "body.link", `external HTTPS link "${href}" skipped without network validation.`, link.line);
     return;
   }
   if (/^[A-Za-z][A-Za-z0-9+.-]*:/.test(href) || href.startsWith("//")) {
@@ -889,10 +890,41 @@ function addWarning(diagnostics, filePath, field, reason, line) {
   diagnostics.push({ level: "warning", filePath, field, reason, line });
 }
 
+async function validateExternalLinks(entries, diagnostics) {
+  const urls = new Map();
+  for (const entry of entries) {
+    const add = (url, field) => {
+      if (isSafeHttpsUrl(url)) urls.set(url, { filePath: entry.filePath, field });
+    };
+    for (const link of entry.markdownLinks ?? []) add(link.href, link.type === "image" ? "body.image.src" : "body.link");
+    for (const source of entry.sources) add(source.url, "source.url");
+    if (entry.image) add(entry.image.src, "image.src");
+    for (const src of entry.media.keys()) add(src, "media.src");
+  }
+
+  await Promise.all([...urls].map(async ([url, location]) => {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10_000);
+    try {
+      let response = await fetch(url, { method: "HEAD", redirect: "follow", signal: controller.signal });
+      if (response.status >= 400) {
+        response = await fetch(url, { method: "GET", redirect: "follow", signal: controller.signal, headers: { Range: "bytes=0-0" } });
+      }
+      if (!response.ok) addError(diagnostics, location.filePath, location.field, `external HTTPS URL "${url}" returned HTTP ${response.status}.`);
+    } catch (error) {
+      const reason = error?.name === "AbortError" ? "timed out" : "could not be reached";
+      addWarning(diagnostics, location.filePath, location.field, `external HTTPS URL "${url}" ${reason}; network validation could not complete.`);
+    } finally {
+      clearTimeout(timeout);
+    }
+  }));
+}
+
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const result = validateEditorialDirectory({
     allowForwardReferences: process.argv.includes("--allow-forward-references"),
   });
+  if (process.argv.includes("--check-external-links")) await validateExternalLinks(result.entries, result.diagnostics);
   console.log(formatEditorialValidationResult(result));
   if (result.diagnostics.some((diagnostic) => diagnostic.level === "error")) {
     process.exitCode = 1;

@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 interface Article {
@@ -17,6 +18,8 @@ interface FeedItem {
   enclosure?: { link?: string }
   description: string
 }
+
+const remoteImageLoader = ({ src }: { src: string }) => src
 
 export default function Medium() {
   const [articles, setArticles] = useState<Article[]>([])
@@ -74,7 +77,7 @@ export default function Medium() {
                 onMouseEnter={e => (e.currentTarget.style.borderColor = '#E8621A')}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(139,163,184,0.08)')}>
                 {article.thumbnail && (
-                  <img src={article.thumbnail} alt={article.title} style={{ width: '100%', height: 160, objectFit: 'cover' }} />
+                  <Image loader={remoteImageLoader} unoptimized src={article.thumbnail} alt={article.title} width={640} height={360} style={{ width: '100%', height: 160, objectFit: 'cover' }} />
                 )}
                 <div style={{ padding: '20px' }}>
                   <div style={{ fontWeight: 700, fontSize: 15, color: '#F5F0E8', lineHeight: 1.4, marginBottom: 10 }}>{article.title}</div>

@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export default function Hero() {
   return (
     <section className="px-section" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', paddingTop: 120, paddingBottom: 80, position: 'relative', overflow: 'hidden', background: '#0D1B2A' }}>
@@ -28,7 +30,7 @@ export default function Hero() {
         <div className="hero-logo" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
           <div style={{ position: 'relative', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
             <div className="spin-ring" style={{ position: 'absolute', inset: -40, borderRadius: '50%', border: '1px dashed rgba(232,98,26,0.25)' }} />
-            <img src="/rbs-shield-only-logo.png" alt="Really Bad Security" style={{ width: 340, height: 340, objectFit: 'contain', position: 'relative', zIndex: 2, filter: 'drop-shadow(0 0 60px rgba(232,98,26,0.4))', animation: 'float 6s ease-in-out infinite' }} />
+            <Image src="/rbs-shield-only-logo.png" alt="Really Bad Security" width={340} height={340} style={{ width: 340, height: 340, objectFit: 'contain', position: 'relative', zIndex: 2, filter: 'drop-shadow(0 0 60px rgba(232,98,26,0.4))', animation: 'float 6s ease-in-out infinite' }} />
           </div>
         </div>
       </div>

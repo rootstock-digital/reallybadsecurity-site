@@ -1,4 +1,5 @@
 'use client'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
 
@@ -9,6 +10,8 @@ interface Product {
   priceRange: { minVariantPrice: { amount: string } }
   images: { edges: { node: { url: string; altText: string } }[] }
 }
+
+const remoteImageLoader = ({ src }: { src: string }) => src
 
 async function fetchProducts(): Promise<Product[]> {
   const res = await fetch('/api/shop')
@@ -63,7 +66,7 @@ export default function Shop() {
                 onMouseEnter={e => (e.currentTarget.style.borderColor = '#E8621A')}
                 onMouseLeave={e => (e.currentTarget.style.borderColor = 'rgba(139,163,184,0.08)')}>
                 {product.images.edges[0] && (
-                  <img src={product.images.edges[0].node.url} alt={product.images.edges[0].node.altText || product.title}
+                  <Image loader={remoteImageLoader} unoptimized src={product.images.edges[0].node.url} alt={product.images.edges[0].node.altText || product.title} width={640} height={640}
                     style={{ width: '100%', height: 200, objectFit: 'cover' }} />
                 )}
                 <div style={{ padding: '20px 24px' }}>

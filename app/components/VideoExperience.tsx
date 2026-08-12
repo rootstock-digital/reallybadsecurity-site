@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useState } from 'react'
 
 type Video = {
@@ -24,6 +25,8 @@ type PlaylistResponse = {
     videos: Video[]
   }>
 }
+
+const remoteImageLoader = ({ src }: { src: string }) => src
 
 const series: readonly VideoSeries[] = [
   {
@@ -66,7 +69,7 @@ function VideoExperience({ variant }: { variant: 'home' | 'watch' }) {
         if (!Array.isArray(data.playlists)) throw new Error('YouTube response was invalid.')
         setVideosByPlaylist(new Map(data.playlists.map((playlist) => [playlist.playlistId, playlist.videos])))
         setState('ready')
-      } catch (error) {
+      } catch {
         if (controller.signal.aborted) return
         setState('error')
       }
@@ -102,7 +105,7 @@ function VideoExperience({ variant }: { variant: 'home' | 'watch' }) {
 
 function VideoCard({ video, channelName, showDescription, titleInThumbnail }: { video: Video; channelName: string; showDescription: boolean; titleInThumbnail: boolean }) {
   return <a className="video-card" href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank" rel="noopener noreferrer" aria-label={`Watch ${video.title} from ${channelName} on YouTube`}>
-    {video.thumbnail ? <img src={video.thumbnail} alt="" /> : <div className="video-thumbnail-fallback" aria-hidden="true" />}
+    {video.thumbnail ? <Image loader={remoteImageLoader} unoptimized src={video.thumbnail} alt="" width={640} height={360} /> : <div className="video-thumbnail-fallback" aria-hidden="true" />}
     <div className="video-card-copy">
       {!titleInThumbnail ? <h3>{video.title}</h3> : null}
       {showDescription && video.description ? <p className="video-card-description">{video.description}</p> : null}

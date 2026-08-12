@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --webpack",
     "build": "node scripts/build-editorial-bundle.mjs && next build",
-    "ci": "npm run test && npm run typecheck && npm run lint && npm run validate:editorial && npm run build",
+    "ci": "npm run test && npm run typecheck && npm run lint && npm run validate:editorial:network && npm run build",
     "deploy": "npm run deploy:production",
     "deploy:production": "opennextjs-cloudflare build && opennextjs-cloudflare deploy --env=\"\"",
     "deploy:staging": "opennextjs-cloudflare build && opennextjs-cloudflare deploy --env staging",
@@ -14,7 +14,8 @@
     "test": "vitest run",
     "test:goods": "vitest run app/modules/goods",
     "typecheck": "tsc --noEmit",
-    "validate:editorial": "node scripts/validate-editorial.mjs"
+    "validate:editorial": "node scripts/validate-editorial.mjs",
+    "validate:editorial:network": "node scripts/validate-editorial.mjs --check-external-links"
   },
   "dependencies": {
     "@opennextjs/cloudflare": "^1.20.2",
