@@ -21,7 +21,7 @@ export default async function ShopPage() {
   const productGroups = products ? groupProductsByMeaning(products) : []
 
   return <EditorialShell>
-    <header className="read-page-header shop-page-header">
+    <header className="read-page-header">
       <div className="container">
         <span className="eyebrow">Shop</span>
         <h1>The Merch</h1>
