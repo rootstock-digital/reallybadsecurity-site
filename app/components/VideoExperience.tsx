@@ -56,7 +56,7 @@ export function WatchSeries() {
 function VideoExperience({ variant }: { variant: 'home' | 'watch' }) {
   const [videosByPlaylist, setVideosByPlaylist] = useState<Map<string, Video[]>>(new Map())
   const [state, setState] = useState<'loading' | 'ready' | 'error'>('loading')
-  const videoLimit = variant === 'home' ? 2 : 3
+  const videoLimit = variant === 'home' ? 1 : 3
 
   useEffect(() => {
     const controller = new AbortController()

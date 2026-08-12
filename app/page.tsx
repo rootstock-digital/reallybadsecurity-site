@@ -172,7 +172,7 @@ function homeArticleEntries(entries: readonly EditorialEntry[]): EditorialEntry[
   const bySlug = new Map(withoutFixture.map((entry) => [entry.frontmatter.slug, entry]))
   const curated = homePreviewSlugs.map((slug) => bySlug.get(slug)).filter((entry): entry is EditorialEntry => Boolean(entry))
   const remaining = withoutFixture.filter((entry) => !homePreviewSlugs.includes(entry.frontmatter.slug as (typeof homePreviewSlugs)[number]))
-  return [...remaining, ...curated].slice(0, 4)
+  return [...remaining, ...curated].slice(0, 2)
 }
 
 function seriesLabel(series: string): string {
