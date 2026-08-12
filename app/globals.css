@@ -610,6 +610,10 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
 .editorial-richtext-content > :last-child { margin-bottom: 0; }
 .editorial-richtext-content h2 { margin: 2rem 0 .75rem; color: var(--rbs-navy); font-size: 1.6rem; line-height: 1.1; }
 .editorial-richtext-content h3 { margin: 1.5rem 0 .6rem; color: var(--rbs-navy); font-size: 1.2rem; line-height: 1.2; }
+.editorial-richtext-content ul, .editorial-richtext-content ol { margin: 1rem 0; padding-left: 1.75rem; }
+.editorial-richtext-content ul { list-style: disc; }
+.editorial-richtext-content ol { list-style: decimal; }
+.editorial-richtext-content li { margin: .3rem 0; padding-left: .2rem; }
 .editorial-richtext-content blockquote { margin: 1.25rem 0; padding-left: 1rem; border-left: 3px solid var(--rbs-orange); color: #435b6b; }
 .editorial-richtext-content pre { overflow-x: auto; padding: 1rem; background: var(--rbs-navy); color: var(--rbs-cream); }
 .editorial-richtext-content a { color: #a64210; }
