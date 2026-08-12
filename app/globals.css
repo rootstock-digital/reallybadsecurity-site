@@ -369,7 +369,6 @@ a:focus-visible, button:focus-visible, input:focus-visible { outline: 3px solid 
 .read-empty-state p { color: var(--rbs-goldilocks); }
 .article { padding: clamp(3.5rem, 8vw, 6rem) 0; background: var(--rbs-navy); }
 .article-header { border-bottom: 1px solid var(--rbs-line); padding-bottom: 2rem; margin-bottom: 2.4rem; }
-.article-cover-image { display: block; width: 100%; margin-bottom: 2rem; aspect-ratio: 16 / 9; object-fit: cover; background: var(--rbs-card); }
 .article-title { max-width: 16ch; font-size: clamp(2.6rem, 5vw, 5.1rem); }
 .article-body { color: var(--rbs-cream); font-size: 1.13rem; }
 .article-body p { margin: 0 0 1.4rem; }

@@ -24,12 +24,10 @@ export function SecuritySignalsIndex({ entries }: { entries: readonly EditorialE
 }
 
 export function EditorialNote({ entry, relatedEntries = [] }: { entry: EditorialEntry; relatedEntries?: readonly EditorialEntry[] }) {
-  const blocks = entry.body.split(/\n{2,}/).filter(Boolean);
-  const cover = getApprovedLocalCover(entry);
+  const blocks = entry.body.replace(/\r\n?/gu, "\n").split(/\n{2,}/u).filter(Boolean);
   return (
     <article className="article"><div className="container reading-width">
       <header className="article-header">
-        {cover ? <img className="article-cover-image" src={cover.src} alt={cover.alt} /> : null}
         <span className="label">{entry.frontmatter.format} · Really Bad Security</span>
         <h1 className="article-title">{entry.frontmatter.title}</h1>
         <p className="article-lede">{entry.frontmatter.summary}</p>
@@ -83,6 +81,7 @@ function renderBlock(block: string) {
   const firstLine = lines[0] ?? "";
   const secondLine = lines[1] ?? "";
   if (/^=+\s*$/u.test(secondLine) || /^-+\s*$/u.test(secondLine)) return <h2 key={text}>{inlineMarkdown(firstLine)}</h2>;
+  if (lines.length === 1 && /^\*\*[^*]+\*\*$/u.test(firstLine)) return <h2 key={text}>{inlineMarkdown(firstLine)}</h2>;
   if (firstLine.startsWith("### ")) return <h3 key={text}>{inlineMarkdown(firstLine.slice(4))}</h3>;
   if (firstLine.startsWith("## ")) return <h2 key={text}>{inlineMarkdown(firstLine.slice(3))}</h2>;
   if (lines.every((line) => line.startsWith("- "))) return <ul key={text}>{lines.map((line) => <li key={line}>{inlineMarkdown(line.slice(2))}</li>)}</ul>;
