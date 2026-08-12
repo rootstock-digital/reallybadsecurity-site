@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
+import { useState } from 'react'
 
 const links = [
   { href: '/', label: 'Home' },
@@ -15,6 +16,7 @@ const links = [
 
 export default function SiteHeader() {
   const pathname = usePathname()
+  const [menuOpen, setMenuOpen] = useState(false)
 
   return (
     <header className="site-header">
@@ -23,10 +25,15 @@ export default function SiteHeader() {
           <Image className="wordmark-mark" src="/rbs-shield-only-logo.png" alt="" width={44} height={44} />
           <span className="wordmark-text">Really Bad <b>Security</b><small>Articles, Podcasts, Merch</small></span>
         </Link>
-        <nav className="site-nav" aria-label="Primary navigation">
+        <button className="site-menu-toggle" type="button" aria-controls="primary-navigation" aria-expanded={menuOpen} aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'} onClick={() => setMenuOpen((open) => !open)}>
+          <span className="site-menu-toggle-bar" />
+          <span className="site-menu-toggle-bar" />
+          <span className="site-menu-toggle-bar" />
+        </button>
+        <nav id="primary-navigation" className={`site-nav${menuOpen ? ' is-open' : ''}`} aria-label="Primary navigation">
           {links.map((link) => {
             const isActive = pathname === link.href || (link.href === '/security-signals' && pathname.startsWith('/security-signals/'))
-            return <Link key={link.href} href={link.href} aria-current={isActive ? 'page' : undefined}>{link.label}</Link>
+            return <Link key={link.href} href={link.href} aria-current={isActive ? 'page' : undefined} onClick={() => setMenuOpen(false)}>{link.label}</Link>
           })}
         </nav>
       </div>

@@ -27,20 +27,23 @@ const featuredMerch = [
   {
     title: 'Vibe Codes Only Tee',
     href: '/shop/vibe-codes-only-tee',
-    image: 'https://shop.reallybadsecurity.com/cdn/shop/files/unisex-staple-t-shirt-black-front-6a725a4a7f6ba.jpg?v=1785879126&width=1946',
+    image: 'https://shop.reallybadsecurity.com/cdn/shop/files/unisex-staple-t-shirt-athletic-heather-front-6a725a4abf919.jpg?v=1785879127&width=1946',
     alt: 'Product photograph of the Vibe Codes Only T-shirt.',
+    blurb: 'Good vibes. Questionable commits. Zero bad energy.',
   },
   {
     title: 'Currently Being Shadowbanned Tee',
     href: '/shop/currently-being-shadowbanned-tee-1',
-    image: 'https://shop.reallybadsecurity.com/cdn/shop/files/unisex-staple-t-shirt-black-front-6a724c559439c.jpg?v=1785875554&width=1946',
+    image: 'https://shop.reallybadsecurity.com/cdn/shop/files/unisex-staple-t-shirt-military-green-front-6a7c8db696609.jpg?v=1786547757&width=1946',
     alt: 'Product photograph of the Currently Being Shadowbanned T-shirt.',
+    blurb: 'Post it. Refresh. Blame the algorithm.',
   },
   {
     title: 'Do You Even Vibe Code Bro Tee',
     href: '/shop/do-you-even-vibe-code-bro-tee',
-    image: 'https://shop.reallybadsecurity.com/cdn/shop/files/unisex-staple-t-shirt-black-front-2-6a725714ec2e2.jpg?v=1785878303&width=1946',
+    image: 'https://shop.reallybadsecurity.com/cdn/shop/files/unisex-staple-t-shirt-black-front-2-6a725714ec2e2.jpg?v=1786544276&width=1946',
     alt: 'Product photograph of the Do You Even Vibe Code Bro T-shirt.',
+    blurb: 'Ship first. Inspect logs later. Vibe responsibly.',
   },
 ] as const
 
@@ -129,6 +132,7 @@ export default async function Home() {
               {featuredMerch.map((product) => <a className="merch-card" href={product.href} key={product.href}>
                 <Image className="merch-card-image" src={product.image} alt={product.alt} width={1024} height={1024} sizes="(max-width: 760px) 100vw, 26vw" />
                 <span>{product.title}</span>
+                <em>{product.blurb}</em>
                 <small>See it in the shop →</small>
               </a>)}
             </div>
