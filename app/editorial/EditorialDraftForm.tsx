@@ -129,7 +129,7 @@ export default function EditorialDraftForm({ entry }: { entry?: EditorialAdminEn
         ) : <input name="canonicalUrl" type="hidden" value="" />}
       </section>
 
-      <div className="editorial-admin-actions"><Link href={entry ? `/editorial/${entry.id}` : "/editorial"}>Cancel</Link><button className="editorial-admin-button" type="submit">{entry ? "Save draft changes" : "Save private draft"}</button></div>
+      <div className="editorial-admin-actions"><Link href={entry ? `/editorial/${entry.id}` : "/editorial"}>Cancel</Link><button className="editorial-admin-button" type="submit">{entry?.status === "published" ? "Save live changes" : entry ? "Save draft changes" : "Save private draft"}</button></div>
     </form>
   );
 }

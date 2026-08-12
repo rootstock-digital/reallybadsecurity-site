@@ -136,7 +136,7 @@ export function createD1EditorialRepository(database: EditorialD1Database): Edit
         UPDATE editorial_entries
         SET version = ?, title = ?, slug = ?, summary = ?, format = ?, series = ?, body_markdown = ?,
             seo_title = ?, seo_description = ?, canonical_mode = ?, canonical_url = ?, updated_at = ?
-        WHERE id = ? AND version = ? AND status = 'draft'
+        WHERE id = ? AND version = ? AND status IN ('draft', 'published')
       `).bind(
         entry.version, entry.title, entry.slug, entry.summary, entry.format, entry.series, entry.body,
         entry.seoTitle, entry.seoDescription, entry.canonicalMode, entry.canonicalUrl ?? null,

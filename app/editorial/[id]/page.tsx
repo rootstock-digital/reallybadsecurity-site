@@ -24,8 +24,8 @@ export const metadata: Metadata = {
 const statusCopy: Record<EditorialStatus, string> = {
   draft: "Private draft. Only editorial workspace members can see it.",
   in_review: "In review. It is ready for an editor to check facts, voice, and search preview.",
-  scheduled: "Approved for publishing. It is still private while staging delivery is being verified.",
-  published: "Marked published in the staging editorial system. Public-site delivery has not been connected yet.",
+  scheduled: "Approved and ready to publish. It remains private until you choose Publish article.",
+  published: "Published on the public site. You can edit the article and republish changes at any time.",
   retired: "Retired. It remains in the private audit trail and is no longer eligible for public delivery.",
 };
 
@@ -40,11 +40,11 @@ const transitionControls: Record<EditorialStatus, readonly TransitionControl[]> 
   in_review: [
     { nextStatus: "draft", label: "Return to draft", action: "returned_to_draft" },
     { nextStatus: "scheduled", label: "Approve for publishing", action: "approved" },
-    { nextStatus: "published", label: "Publish on staging", action: "published" },
+    { nextStatus: "published", label: "Publish article", action: "published" },
   ],
   scheduled: [
     { nextStatus: "draft", label: "Return to draft", action: "returned_to_draft" },
-    { nextStatus: "published", label: "Publish on staging", action: "published" },
+    { nextStatus: "published", label: "Publish article", action: "published" },
   ],
   published: [{ nextStatus: "retired", label: "Retire article", action: "retired" }],
   retired: [],
@@ -79,7 +79,7 @@ export default async function EditorialReviewPage({ params }: { params: Promise<
             <span>Last saved {formatDate(entry.updatedAt)}</span>
             <span>Series: {entry.series}</span>
           </div>
-          {entry.status === "draft" ? <Link className="editorial-admin-button editorial-review-edit-button" href={`/editorial/${entry.id}/edit`}>Edit draft</Link> : null}
+          {entry.status === "draft" || entry.status === "published" ? <Link className="editorial-admin-button editorial-review-edit-button" href={`/editorial/${entry.id}/edit`}>{entry.status === "published" ? "Edit article" : "Edit draft"}</Link> : null}
         </header>
 
         <section className="editorial-review-section" aria-labelledby="article-copy-heading">
@@ -100,7 +100,7 @@ export default async function EditorialReviewPage({ params }: { params: Promise<
             <div><dt>Search-result title</dt><dd>{entry.seoTitle}</dd></div>
             <div><dt>Search-result description</dt><dd>{entry.seoDescription}</dd></div>
             <div><dt>Original source</dt><dd>{canonicalLabel(entry)}</dd></div>
-            <div><dt>Article URL</dt><dd>/{entry.slug}</dd></div>
+            <div><dt>Article URL</dt><dd>/security-signals/{entry.slug}</dd></div>
           </dl>
         </section>
 
@@ -109,9 +109,7 @@ export default async function EditorialReviewPage({ params }: { params: Promise<
             <span className="eyebrow">Publishing decision</span>
             <h2 id="publishing-decision-heading">What happens next</h2>
           </div>
-          <p>
-            Approval changes the article’s private workflow status. The staging system is deliberately not connected to the public RBS article routes yet, so no action on this screen posts it publicly.
-          </p>
+          <p>{entry.status === "published" ? "This article is live on the public site. Save edits from the editor to update the live version, or retire it to remove it from public listings." : "Review the copy and search settings, then publish directly to the public RBS article feed when it is ready. You can edit and republish it later if needed."}</p>
           {controls.length ? (
             <div className="editorial-review-actions">
               {controls.map((control) => (

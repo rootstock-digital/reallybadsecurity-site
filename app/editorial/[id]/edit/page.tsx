@@ -20,15 +20,15 @@ export default async function EditEditorialArticlePage({ params }: { params: Pro
   } catch {
     notFound();
   }
-  if (entry.status !== "draft") notFound();
+  if (entry.status !== "draft" && entry.status !== "published") notFound();
 
   return (
     <EditorialShell>
       <main className="editorial-admin-shell">
         <header className="editorial-admin-header">
           <span className="eyebrow">Editorial workspace</span>
-          <h1>Edit draft</h1>
-          <p>Make changes, save the private draft, then send it back to review when it is ready.</p>
+          <h1>{entry.status === "published" ? "Edit published article" : "Edit draft"}</h1>
+          <p>{entry.status === "published" ? "Changes are saved directly to the live article. Review carefully before saving." : "Make changes, save the private draft, then send it back to review when it is ready."}</p>
         </header>
         <EditorialDraftForm entry={entry} />
       </main>
