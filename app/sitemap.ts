@@ -1,10 +1,11 @@
 import type { MetadataRoute } from "next";
 import { rbsEditorialConfig, rbsEditorialSchemaOptions, rbsEditorialSite } from "./config/editorial";
-import { getPublicEditorialEntries } from "./modules/editorial/editorial.loader";
+import { getRequestPublicEditorialEntries } from "./modules/editorial/editorial.request-loader";
 import { getEditorialSitemapEntries } from "./modules/editorial/editorial.sitemap";
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const routes = ["", "/about", "/contact", "/editorial-standards", "/watch", "/shop", "/join"];
+  const editorialEntries = await getRequestPublicEditorialEntries(rbsEditorialSchemaOptions);
 
   return [
     ...routes.map((route) => ({
@@ -13,6 +14,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly" as const,
       priority: route === "" ? 1 : 0.7,
     })),
-    ...getEditorialSitemapEntries(rbsEditorialConfig, rbsEditorialSite.origin, getPublicEditorialEntries(undefined, rbsEditorialSchemaOptions)),
+    ...getEditorialSitemapEntries(rbsEditorialConfig, rbsEditorialSite.origin, editorialEntries),
   ];
 }
